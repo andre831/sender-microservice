@@ -1,0 +1,9 @@
+version: "3"
+
+services:
+  mailer-service:
+    build:
+      context: ./mailer-service
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3001"

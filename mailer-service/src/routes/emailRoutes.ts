@@ -1,6 +1,5 @@
-import { Router, Request, Response } from "express";
-
-const router = Router();
+import router from "./index";
+import { Request, Response } from "express";
 
 router.get("/users", (req: Request, res: Response) => {
   res.send("Email Users");
