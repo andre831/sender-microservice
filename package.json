@@ -1,0 +1,24 @@
+{
+  "name": "sender-microservice",
+  "version": "1.0.0",
+  "description": "a microservice to send mails",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andre831/sender-microservice.git"
+  },
+  "keywords": [
+    "sender",
+    "email",
+    "andre"
+  ],
+  "author": "Andre Santos",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/andre831/sender-microservice/issues"
+  },
+  "homepage": "https://github.com/andre831/sender-microservice#readme"
+}
