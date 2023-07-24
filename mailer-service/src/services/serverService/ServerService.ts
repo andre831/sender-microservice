@@ -1,7 +1,12 @@
-import express from "express";
+import express, {
+  Request,
+  Response,
+  ErrorRequestHandler,
+  NextFunction,
+} from "express";
 import { Server } from "./IServerService";
 
-import emailRoutes from "../../routes/emailRoutes";
+import emailRoutes from "../../routes/mailRoutes";
 
 export class ExpressServer implements Server {
   public app: express.Express;
@@ -22,10 +27,10 @@ export class ExpressServer implements Server {
   }
 
   private errorHandler(
-    err: express.ErrorRequestHandler,
-    req: express.Request,
-    res: express.Response,
-    next: express.NextFunction
+    err: ErrorRequestHandler,
+    req: Request,
+    res: Response,
+    next: NextFunction
   ): void {
     console.error(err);
     res.status(500).json({ error: "Internal Server Error" });
