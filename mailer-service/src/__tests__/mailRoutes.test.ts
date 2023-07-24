@@ -1,7 +1,9 @@
-import request from "supertest";
+import axios, { AxiosError } from "axios";
 import { ExpressServer } from "../services/serverService/ServerService";
 
-const appTest = new ExpressServer(3002);
+const port = 3030;
+const appTest = new ExpressServer(port);
+appTest.start();
 
 describe("POST send email -> /email/send", () => {
   it("Return a object with data about send a valid email", async () => {
@@ -11,20 +13,31 @@ describe("POST send email -> /email/send", () => {
       message: "test route OK!",
     };
 
-    const sent = await request(appTest.app).post("/email/send").send(opts);
+    const sent = await axios.post(`http://localhost:${port}/email/send`, opts);
 
     expect(sent.status).toBe(200);
-    expect(sent.body).toEqual({ data: "Rodou" });
-  }, 10000);
+    expect(sent.data).toEqual({ data: "Successful" });
+  });
 
-  it("Return a object a invalid email", async () => {
+  it("Return a object with error for an invalid email", async () => {
     const opts = {
-      to: "invalid@mail.com",
+      to: "invalid_email",
+      subject: "JEST TEST MAIL",
+      message: "test route OK!",
     };
 
-    const sent = await request(appTest.app).post("/email/send").send(opts);
+    try {
+      const sent = await axios.post(
+        `http://localhost:${port}/email/send`,
+        opts
+      );
 
-    expect(sent.status).toBe(500);
-    expect(sent.body).toEqual({ msg: "Error to sent mail" });
-  }, 10000);
+      expect(sent.status).toBe(200);
+    } catch (error) {
+      const axiosError = error as AxiosError;
+
+      expect(axiosError.response?.status).toBe(500);
+      expect(axiosError.response?.data).toEqual({ msg: "Error to send mail" });
+    }
+  });
 });

@@ -9,9 +9,9 @@ router.post("/send", async (req: Request, res: Response): Promise<any> => {
   try {
     const sent = await MailCtrl.sendEmail(to, subject, message);
 
-    return res.status(200).json({ data: "Rodou" });
+    return res.status(200).json({ data: "Successful" });
   } catch {
-    return res.status(500).json({ msg: "Error to sent mail" });
+    return res.status(500).json({ msg: "Error to send mail" });
   }
 });
 

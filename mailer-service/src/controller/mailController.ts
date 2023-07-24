@@ -17,7 +17,7 @@ class MailCtrl {
     try {
       return await this._mailService.sendEmail(to, subject, message);
     } catch (error) {
-      console.error("Failed to send email:", error);
+      throw error;
     }
   }
 }
