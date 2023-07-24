@@ -1,0 +1,10 @@
+name: run-test-mailer-service
+on:
+  push:
+    branches: [main]
+
+jobs:
+  test-service:
+    name: Run Tests
+    runs-on: ubuntu-latest
+    # container: docker://
