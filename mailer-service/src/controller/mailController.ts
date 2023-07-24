@@ -9,10 +9,6 @@ class MailCtrl {
     this._mailService = new MailService();
   }
 
-  public async oi(req: Request, res: Response): Promise<any> {
-    return res.status(200).json({ message: "Sent ready" });
-  }
-
   public async sendEmail(
     to: string,
     subject: string,
