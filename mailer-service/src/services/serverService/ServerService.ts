@@ -4,17 +4,21 @@ import express, {
   ErrorRequestHandler,
   NextFunction,
 } from "express";
+import { Server as HttpServer } from "http";
+
 import { Server } from "./IServerService";
 
 import emailRoutes from "../../routes/mailRoutes";
 
 export class ExpressServer implements Server {
   public app: express.Express;
+  public server!: HttpServer | null;
   public port: number;
 
   constructor(port: number) {
     this.app = express();
     this.port = port;
+    this.server = null;
   }
 
   private initializeMiddlewares(): void {
@@ -42,8 +46,16 @@ export class ExpressServer implements Server {
 
     this.app.use(this.errorHandler);
 
-    this.app.listen(this.port, () => {
+    this.server = this.app.listen(this.port, () => {
       console.log(`Server running on port ${this.port}`);
     });
+  }
+
+  public close(): void {
+    if (this.server) {
+      this.server.close();
+
+      console.log("SERVER CLOSED");
+    }
   }
 }

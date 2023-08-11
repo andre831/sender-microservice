@@ -4,4 +4,5 @@ export interface Server {
   app: express.Express;
   port: number;
   start(): void;
+  close(): void;
 }

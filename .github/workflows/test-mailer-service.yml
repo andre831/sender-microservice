@@ -11,16 +11,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Install Node.js and dependencies
-        run: |
-          curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
-          sudo apt-get install -y nodejs
-
-      - name: Navigate to mailer-service folder
-        run: cd mailer-service
-
-      - name: Install mailer-service dependencies
-        run: npm install
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "18"
 
       - name: Run Jest tests
-        run: npm test
+        working-directory: ./mailer-service
+        run: |
+          npm install
+          npm test

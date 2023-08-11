@@ -41,3 +41,7 @@ describe("POST send email -> /email/send", () => {
     }
   });
 });
+
+afterAll(() => {
+  appTest.close();
+});

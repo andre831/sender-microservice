@@ -1,17 +1,19 @@
 import AWS from "aws-sdk";
 import nodemailer from "nodemailer";
 
+import { apiKey, regionKey, mailKey, secretKey } from "../../../config";
+
 class MailService {
   private transporter: nodemailer.Transporter;
   private mail: string;
 
   constructor() {
-    this.mail = "python.sendemail0@gmail.com";
+    this.mail = mailKey as string;
 
     const ses = new AWS.SES({
-      accessKeyId: "", //,
-      secretAccessKey: "",
-      region: "us-east-2",
+      accessKeyId: apiKey,
+      secretAccessKey: secretKey,
+      region: regionKey,
     });
 
     this.transporter = nodemailer.createTransport({ SES: { ses, aws: AWS } });
@@ -29,7 +31,11 @@ class MailService {
       text: message,
     };
 
-    return await this.transporter.sendMail(opts);
+    try {
+      return await this.transporter.sendMail(opts);
+    } catch (error) {
+      throw new Error(error as string);
+    }
   }
 }
 
