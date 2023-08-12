@@ -1,0 +1,32 @@
+name: Provide EC2 Instance Terraform Apply
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up TF
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 1.0.0
+
+      - name: Configs AWS credentials
+        run: |
+          echo "AWS_ACCESS_KEY_ID=${{ secrets.ROOT_AWS_ACCESS_KEY }}" >> $GITHUB_ENV
+          echo "AWS_SECRET_ACCESS_KEY=${{ secrets.ROOT_AWS_SECRET_KEY }}" >> $GITHUB_ENV
+
+      - name: Run Terraform
+        run: |
+          terraform init
+          terraform apply -auto-approve
+        env:
+          TF_VAR_region: us-east-2
+          TF_VAR_some_other_variable: value
