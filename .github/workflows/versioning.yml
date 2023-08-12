@@ -1,0 +1,28 @@
+name: Versioning Manager
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  tag_manager:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set Up Git
+        run: |
+          git config user.name "andre831"
+          git config user.email "andredupdm@gmail.com"
+
+      - name: Define TAG
+        id: define_tag
+        run: |
+          TAG_NAME="v${{ github.run_number }}"
+          git tag -a $TAG_NAME -m "Version $TAG_NAME"
+
+      - name: Push Tag
+        run: git push origin ${{ steps.define_tag.outputs.tag }}
