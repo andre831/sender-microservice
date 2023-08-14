@@ -22,7 +22,7 @@ jobs:
         id: define_tag
         run: |
           TAG_NAME="v${{ github.run_number }}"
-          git tag -a $TAG_NAME -m "Version $TAG_NAME"
+          git tag -a $TAG_NAME -m "Version: $TAG_NAME"
 
       - name: Push Tag
         run: git push origin ${{ steps.define_tag.outputs.tag }}
