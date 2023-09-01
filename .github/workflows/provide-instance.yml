@@ -2,12 +2,14 @@ name: Provide EC2 Instance Terraform Apply
 
 on:
   pull_request:
-    types: [closed]
+    types:
+      - closed
     branches:
       - main
 
 jobs:
   terraform:
+    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
 
     steps:
