@@ -1,23 +1,21 @@
-name: Versioning Manager
-
+name: Bump version
 on:
   push:
     branches:
       - main
 
 jobs:
-  tag_manager:
-    runs-on: ubuntu-latest
-
+  build:
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: write
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: "0"
 
-      - name: Set Up Git
-        run: |
-          git status
-          git branch -q
-
-      - name: Check repository
-        run: |
-          ls && pwd
+      - name: Bump version
+        uses: anothrNick/github-tag-action@1.64.0 # Don't use @master or @v1 unless you're happy to test the latest version
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # if you don't want to set write permissions use a PAT token
+          WITH_V: false
