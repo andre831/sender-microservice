@@ -1,6 +1,4 @@
-import { Request, Response } from "express";
-
-import MailService from "../services/mailService/mailService";
+import MailService from "../services/mailService/MailService";
 
 class MailCtrl {
   private _mailService: MailService;

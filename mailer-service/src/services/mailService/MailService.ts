@@ -2,8 +2,9 @@ import AWS from "aws-sdk";
 import nodemailer from "nodemailer";
 
 import { apiKey, regionKey, mailKey, secretKey } from "../../../config";
+import { Mail } from "./IMailService";
 
-class MailService {
+class MailService implements Mail {
   private transporter: nodemailer.Transporter;
   private mail: string;
 
