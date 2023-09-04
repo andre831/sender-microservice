@@ -1,10 +1,13 @@
 import MailService from "../services/mailService/MailService";
+import ProducerService from "../services/producerService/ProducerService";
 
 class MailCtrl {
   private _mailService: MailService;
+  private _producerService: ProducerService;
 
   constructor() {
     this._mailService = new MailService();
+    this._producerService = new ProducerService();
   }
 
   public async sendEmail(
@@ -13,7 +16,7 @@ class MailCtrl {
     message: string
   ): Promise<void> {
     try {
-      return await this._mailService.sendEmail(to, subject, message);
+      return await this._producerService.processMails(message, "teste");
     } catch (error) {
       throw error;
     }
